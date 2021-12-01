@@ -1,5 +1,6 @@
 import tkinter as tk
 from pytube import YouTube
+import threading
 
 root = tk.Tk()
 root.geometry("300x300")
@@ -8,9 +9,17 @@ root.configure(bg="#14b6e2")
 # youtube_icon = tk.PhotoImage(file = 'youtube.png')
 # root.iconphoto(False, youtube_icon)
 root.iconbitmap("C:/Users/netwo/Desktop/youtube_downloader/youtube_icon.ico")
-
+link_to_video = ""
+name_for_video = ""
 def download_youtube_video(link_to_video, name_for_video):
+	link_to_video = youtube_download_input.get()
+	name_for_video = video_name_input.get()
 	YouTube(link_to_video).streams.get_highest_resolution().download(filename=f"{name_for_video}.mp4", output_path="videos")
+	answer.config(text= "Your tweet has been posted!")
+
+def thread_download_button(link_to_video, name_for_video):
+	# print(link_to_video)
+	threading.Thread(target=download_youtube_video, args=(link_to_video, name_for_video)).start()
 
 tk.Label(root, text="YouTube Video Link", bg="#14b6e2").place(relx=.5, rely=.1,anchor= tk.CENTER)
 tk.Label(root, text="Video Name", bg="#14b6e2").place(relx=.5, rely=.3,anchor= tk.CENTER)
@@ -21,17 +30,13 @@ video_name_input = tk.Entry(root)
 youtube_download_input.place(width=270, relx=.5, rely=.2,anchor= tk.CENTER)
 video_name_input.place(width=270, relx=.5, rely=.4,anchor= tk.CENTER)
 
-def on_click(text):
-	link_to_video = youtube_download_input.get()
-	name_for_video = video_name_input.get()
-	download_youtube_video(link_to_video, name_for_video)
-    # answer.config(text= "Downloading...")
-
-download_button = tk.Button(width = 16, height=5, text= "Download", bg="#1fc72a", command = lambda:on_click("text"))
+download_button = tk.Button(width = 16, height=5, text= "Download", bg="#1fc72a", command = lambda: thread_download_button(link_to_video, name_for_video))
 download_button.place(relx=.5, rely=.6,anchor= tk.CENTER)
 
+# answer = tk.Label(root, text = "")
+# answer.grid(row = 7, column = 0, )
+
 # add a feature which displays downloading text and goes away when downloaded
-# add threading to make it work
 # make the gui widgets pretty
 # answer = tk.Label(root, text = "")
 # answer.place(relx=.5, rely=.7,anchor= tk.CENTER)
@@ -43,6 +48,5 @@ download_button.place(relx=.5, rely=.6,anchor= tk.CENTER)
 
 exit_button = tk.Button(width = 16, height=3, text= "Exit", bg="#e23e1e", command = lambda: root.destroy())
 exit_button.place(relx=.5, rely=.9,anchor= tk.CENTER)
-
 
 root.mainloop()
