@@ -8,18 +8,29 @@ root.title("Youtube Downloader")
 root.configure(bg="#14b6e2")
 # youtube_icon = tk.PhotoImage(file = 'youtube.png')
 # root.iconphoto(False, youtube_icon)
-root.iconbitmap("C:/Users/netwo/Desktop/youtube_downloader/youtube_icon.ico")
+root.iconbitmap("C:/Users/netwo/Desktop/youtube_downloader/youtube_icon2.ico")
 link_to_video = ""
 name_for_video = ""
 def download_youtube_video(link_to_video, name_for_video):
 	link_to_video = youtube_download_input.get()
 	name_for_video = video_name_input.get()
 	YouTube(link_to_video).streams.get_highest_resolution().download(filename=f"{name_for_video}.mp4", output_path="videos")
-	answer.config(text= "Your tweet has been posted!")
+	# answer.config(text= "Your tweet has been posted!")
+	# downloaded_message_popup()
+	top= tk.Toplevel(root)
+	top.geometry("350x100")
+	top.title("Child Window")
+	tk.Label(top, text= "Download complete!", font=('Mistral 18 bold')).place(relx=.5, rely=.1,anchor= tk.CENTER)
 
 def thread_download_button(link_to_video, name_for_video):
 	# print(link_to_video)
 	threading.Thread(target=download_youtube_video, args=(link_to_video, name_for_video)).start()
+
+def downloaded_message_popup():
+   top= Toplevel(root)
+   top.geometry("100x500")
+   top.title("Child Window")
+   Label(top, text= "Hello World!", font=('Mistral 18 bold')).place(x=150,y=80)
 
 tk.Label(root, text="YouTube Video Link", bg="#14b6e2").place(relx=.5, rely=.1,anchor= tk.CENTER)
 tk.Label(root, text="Video Name", bg="#14b6e2").place(relx=.5, rely=.3,anchor= tk.CENTER)
