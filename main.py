@@ -23,11 +23,6 @@ root.iconbitmap("C:/Users/netwo/Desktop/youtube_downloader/youtube_icon.ico")
 link_to_video = ""
 name_for_video = ""
 
-# changing message works, but only when the updated message is longer
-# make the gui widgets pretty
-# handle errors of download button with no entries in command line
-# ask how to make filename optional in the program
-# make about page
 
 def download_youtube_video(link_to_video, name_for_video):
 	link_to_video = youtube_download_input.get()
@@ -66,10 +61,13 @@ video_name_input = tk.Entry(root)
 youtube_download_input.place(width=270, relx=.5, rely=.2,anchor= tk.CENTER)
 video_name_input.place(width=270, relx=.5, rely=.4,anchor= tk.CENTER)
 
-download_button = tk.Button(width = 16, height=5, text= "Download", bg="#1fc72a", command = lambda: thread_download_button(link_to_video, name_for_video))
-download_button.place(relx=.5, rely=.6,anchor= tk.CENTER)
+download_button = tk.Button(width = 16, height=1, text= "Download", bg="#1fc72a", command = lambda: thread_download_button(link_to_video, name_for_video))
+download_button.place(relx=.5, rely=.5,anchor= tk.CENTER)
 
-exit_button = tk.Button(width = 16, height=3, text= "Exit", bg="#e23e1e", command = lambda: root.destroy())
-exit_button.place(relx=.5, rely=.9,anchor= tk.CENTER)
+about_button = tk.Button(width = 16, height=1, text= "About", bg="#dfb026")
+about_button.place(relx=.5, rely=.6,anchor= tk.CENTER)
+
+exit_button = tk.Button(width = 16, height=1, text= "Exit", bg="#e23e1e", command = lambda: root.destroy())
+exit_button.place(relx=.5, rely=.7,anchor= tk.CENTER)
 
 root.mainloop()
